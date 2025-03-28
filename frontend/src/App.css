@@ -1,0 +1,31 @@
+
+/* Menyembunyikan scrollbar di browser berbasis WebKit (Chrome, Edge, Safari) */
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Untuk Firefox */
+.sidebar {
+  scrollbar-width: none;
+}
+
+/* Menjaga overflow agar tetap bisa discroll */
+.sidebar {
+  overflow-y: scroll;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.text-xs  { font-size: 0.75rem;  } /* 12px */
+.text-sm  { font-size: 0.875rem; } /* 14px */
+.text-base { font-size: 1rem;     } /* 16px */
+.text-lg  { font-size: 1.125rem; } /* 18px */
+.text-xl  { font-size: 1.25rem;  } /* 20px */
+.text-2xl { font-size: 1.5rem;   } /* 24px */
+.text-3xl { font-size: 1.875rem; } /* 30px */
+.text-4xl { font-size: 2.25rem;  } /* 36px */
+.text-5xl { font-size: 3rem;     } /* 48px */
+.text-6xl { font-size: 3.75rem;  } /* 60px */

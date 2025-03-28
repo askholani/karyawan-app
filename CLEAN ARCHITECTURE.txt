@@ -1,0 +1,26 @@
+CLEAN ARCHITECTURE
+/src
+  ├── core/            # Business Logic
+  │   ├── entities/    # Model Data
+	User
+  │   ├── usecases/    # Logika Aplikasi
+	GetUser.js
+	UpdateUser.js
+  ├── infrastructure/  # API Calls, Storage
+  ├── interfaces/      # UI (React Components)
+  ├── App.js
+
+
+Entities (Core Business Logic)
+Berisi model dan aturan bisnis utama.
+Tidak bergantung pada UI atau library eksternal.
+
+Use Cases (Application Logic)
+operasi spesifik aplikasi, seperti mengambil data, memvalidasi input, dan mengelola state.
+
+Interface (Adapters/UI)
+React Components, Hooks, dan Pages.
+Memanggil Use Cases untuk mendapatkan data.
+
+Infrastructure (External Services) / Repository
+API Calls, Local Storage, atau State Management (Redux/Zustand).
