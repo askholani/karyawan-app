@@ -19,7 +19,9 @@ class User {
     bpjsCode,
     martial,
     isActive = true,
+    username,
   }) {
+    this.username = username;
     this.fullName = fullName;
     this.ktp = ktp;
     this.gender = gender;

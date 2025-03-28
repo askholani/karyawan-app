@@ -40,10 +40,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [user, setUser] = useState([]);
-  const [isEdit, setIsEdit] = useState({
-    status: false,
-    id: null,
-  });
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +59,8 @@ const App = () => {
           }))
         );
 
-        setUser(userData.length > 0 ? userData.data : []);
+        // console.log("userData", userData.data);
+        setUser(userData.data);
       } catch (err) {
         setError(err.message || "Failed to fetch data");
         console.error("Error fetching data:", err);
@@ -82,32 +80,21 @@ const App = () => {
 
   const handleShowUpdate = (index) => {
     const data = user[index];
-    setIsEdit((prev) => ({
-      ...prev,
-      status: true,
-      id: data.id,
-    }));
-    console.log("data", data);
-
+    setIsEdit(true);
     setValue("fullName", data.fullName);
     setValue("ktp", data.ktp);
     setValue("gender", data.gender);
     setValue("birthPlace", data.birthPlace);
     setValue("birthDate", formatDate(data.birthDate));
     setValue("phone", data.phone);
-    // setValue("province", data.province);
-    // setValue("city", data.city);
-    // setValue("subdistrict", data.subdistrict);
-    // setValue("headman", data.headman);
     setValue("email", data.email);
-    // setValue("password", data.password);
     setValue("role", data.role); // Array tetap dipertahankan
     setValue("startContract", formatDate(data.startContract));
     setValue("endContract", formatDate(data.endContract));
     setValue("address", data.address);
     setValue("bpjsCode", data.bpjsCode);
     setValue("martial", data.martial);
-    // setValue("isActive", data.isActive);
+    setValue("username", data.username);
   };
 
   const onSubmit = async (data) => {
@@ -121,19 +108,13 @@ const App = () => {
         headman: headman.find((h) => h.value === data.headman)?.label || "",
       };
 
-      console.log("mappedData", mappedData);
-
-      if (!isEdit.status) {
+      if (!isEdit) {
         const res = await userService.create(mappedData);
         console.log("res", res);
       } else {
         const res = await userService.update(mappedData);
         console.log("res", res);
-        setIsEdit((prev) => ({
-          ...prev,
-          status: false,
-          id: null,
-        }));
+        setIsEdit(false);
       }
 
       const userData = await userService.get();

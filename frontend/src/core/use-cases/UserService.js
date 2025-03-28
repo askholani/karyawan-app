@@ -20,11 +20,11 @@ class UserService {
     return await this.userRepository.getUser();
   }
 
-  async update(id, userData) {
+  async update(userData) {
     try {
       await UserValidationSchema.validate(userData, { abortEarly: false });
       const user = new User(userData);
-      return await this.userRepository.updateUser(id, user);
+      return await this.userRepository.updateUser(user);
     } catch (error) {
       throw new Error(error.errors ? error.errors.join(", ") : error.message);
     }
