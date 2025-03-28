@@ -3,11 +3,7 @@ const Yup = require("yup");
 const userValidation = Yup.object().shape({
   fullName: Yup.string().required("Nama lengkap wajib diisi"),
   username: Yup.string()
-    .matches(
-      /^[a-zA-Z0-9_]+$/,
-      "Username hanya boleh huruf, angka, dan underscore"
-    )
-    .required("Username wajib diisi"),
+  .required("Username wajib diisi"),
   ktp: Yup.string()
     .matches(/^[0-9]+$/, "Nomor KTP hanya boleh angka")
     .required("Nomor KTP wajib diisi"),

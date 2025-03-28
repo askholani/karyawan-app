@@ -31,3 +31,17 @@ exports.getAll = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.update = async (req, res) => {
+  try {
+    // const userId = req.params.id;
+    const updatedUser = await UserRepository.update(req.body);
+    response(req, res, {
+      status: 200,
+      message: "User updated successfully",
+      data: updatedUser,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

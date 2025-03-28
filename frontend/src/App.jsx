@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import DomicileService from "./core/use-cases/DomicileService";
 import UserService from "./core/use-cases/UserService";
 import UserRepository from "./repositories/UserRepository";
+import Swal from "sweetalert2";
 
 const App = () => {
   const {
@@ -108,20 +109,33 @@ const App = () => {
         headman: headman.find((h) => h.value === data.headman)?.label || "",
       };
 
+      let res;
       if (!isEdit) {
-        const res = await userService.create(mappedData);
-        console.log("res", res);
+        res = await userService.create(mappedData);
       } else {
-        const res = await userService.update(mappedData);
-        console.log("res", res);
+        res = await userService.update(mappedData);
         setIsEdit(false);
       }
+
+      // Tampilkan SweetAlert jika berhasil
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Data has been saved successfully.",
+      });
 
       const userData = await userService.get();
       setUser(userData.data);
       reset();
     } catch (error) {
       console.error("❌ Error:", error);
+
+      // Tampilkan SweetAlert jika terjadi error
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message || "Something went wrong!",
+      });
     }
   };
 

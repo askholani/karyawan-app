@@ -9,7 +9,7 @@ class UserRepository {
 
   async create(userData) {
     try {
-      console.log("userData", userData);
+      // console.log("userData", userData);
       await userValidation.validate(userData, { abortEarly: false });
 
       const mappedData = {
@@ -35,8 +35,11 @@ class UserRepository {
         address: userData.address,
         bpjs_code: userData.bpjsCode,
         martial: userData.martial,
+        username: userData.username,
         is_activated: userData.isActive ?? true,
       };
+
+      // console.log("mappedData", mappedData);
 
       const user = await this.model.create(mappedData);
       return new UserEntity(user);
@@ -97,7 +100,7 @@ class UserRepository {
     }
   }
 
-  async update(userId, userData) {
+  async update(userData) {
     try {
       await userValidation.validate(userData, { abortEarly: false });
 
@@ -128,7 +131,13 @@ class UserRepository {
         is_activated: userData.isActive ?? true,
       };
 
-      const user = await this.model.findByPk(userId);
+      // const user = await this.model.findByPk(userId);
+      const user = await this.model.findOne({
+        where: {
+          ktp: userData.ktp,
+        },
+      });
+
       if (!user) {
         throw new Error("User not found");
       }
